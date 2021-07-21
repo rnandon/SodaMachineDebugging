@@ -42,9 +42,9 @@ class SodaMachine:
 
         selected_soda = self.get_inventory_soda(selected_soda_name)
 
-        customer_payment = customer.gather_coins_from_wallet(selected_soda_name)
+        customer_payment = customer.gather_coins_from_wallet(selected_soda)
 
-        self.calculate_transaction(customer_payment, selected_soda_name, customer)
+        self.calculate_transaction(customer_payment, selected_soda, customer)
 
         user_interface.output_text("Transaction complete")
 
@@ -61,11 +61,11 @@ class SodaMachine:
                 self.deposit_coins_into_register(customer_payment)
                 customer.add_coins_to_wallet(customer_change)
                 customer.add_can_to_backpack(selected_soda)
-                user_interface.end_message(selected_soda, change_value)
+                user_interface.end_message(selected_soda.name, change_value)
         elif total_payment_value == selected_soda.price:
             self.deposit_coins_into_register(customer_payment)
             customer.add_can_to_backpack(selected_soda)
-            user_interface.end_message(selected_soda, 0)
+            user_interface.end_message(selected_soda.name, 0)
         else:
             user_interface.output_text("You do not have enough money to purchase this item, returning payment")
             customer.add_coins_to_wallet(customer_payment)
@@ -125,7 +125,7 @@ class SodaMachine:
     def get_inventory_soda(self, selected_soda_name):
         """Returns the first instance of a can whose name matches the selected_soda_name parameter"""
         for can in self.inventory:
-            if can == selected_soda_name:
+            if can.name == selected_soda_name:
                 self.inventory.remove(can)
                 return can
         return None
