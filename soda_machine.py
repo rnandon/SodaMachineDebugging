@@ -39,6 +39,9 @@ class SodaMachine:
     def run_transaction(self, customer):
 
         selected_soda_name = user_interface.soda_selection(self.inventory)
+        if not selected_soda_name:
+            user_interface.output_text("Transaction failed")
+            return
 
         selected_soda = self.get_inventory_soda(selected_soda_name)
 

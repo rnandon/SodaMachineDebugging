@@ -70,6 +70,9 @@ def soda_selection(inventory):
     """Displays purchasable soda inventory and """
     validated_user_selection = (False, None)
     soda_options = get_unique_can_names(inventory)
+    if len(soda_options) == 0:
+        print("Sorry, this machine is empty!")
+        return None
     while validated_user_selection[0] is False:
         print("Please choose from the following options:")
         i = 1
